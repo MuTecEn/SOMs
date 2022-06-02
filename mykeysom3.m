@@ -36,32 +36,28 @@ pos = net.layers{1}.positions;
 [l,m] = size(pos);
 figure, hold on%, plotsomnd(net, x)
 
-for j=1:rows
-for k=1:columns
-    val = y(j,k);
-    if val == 1
-        n = filenames{k};
-        [filepath,name,ext] = fileparts(n);
-        n = name;
-
-        val2 = pos([1,2],j);
-        plot(val2(1),val2(2))
-        text(val2(1),val2(2),0,n,'FontSize',15)
-        
-        for jj=j+1:rows
-            for kk=k+1:columns
-                val3 = pos([1,2],jj);
-                plot([val2(1),val3(1)],[val2(2),val3(2)],'Color','y')
-            end
-        end
+for j=1:rows % each neuron
+    songs = find(y(j,:));
+    if isempty(songs)
+        continue
     end
-        
+    n = filenames{songs(1)};
+    [filepath,name,ext] = fileparts(n);
+    n = name;
+
+    val2 = pos([1,2],j);
+    plot(val2(1),val2(2))
+    text(val2(1),val2(2),0,n,'FontSize',15)
+
+    for jj=j+1:rows
+        songs2 = find(y(jj,:));
+        if isempty(songs2)
+            continue
+        end
+        val3 = pos([1,2],jj);
+        plot([val2(1),val3(1)],[val2(2),val3(2)],'Color','y')
+    end
 end
-
-end
-
-                
-
 
 
 

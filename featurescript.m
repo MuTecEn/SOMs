@@ -1,10 +1,15 @@
 mirverbose(0)
 close all
 
-recurse();
+b=[]; 
+filenames = {};
+
+[b,filenames] = recurse(b,filenames);
+
+save('export.mat','matfile','b','filenames');
 
 
-function recurse()
+function [b,filenames] = recurse(b,filenames)
 d = dir;
 
     for i = 3:length(d)
@@ -12,7 +17,7 @@ d = dir;
             disp('/////////////////')
             d(i).name
             cd(d(i).name);
-            recurse();
+            [b,filenames] = recurse(b,filenames)
             cd ..
         else
             try
@@ -20,16 +25,18 @@ d = dir;
                     m = readmidi(d(i).name);
                     
                     m = setvalues(m,'dur',1); % duration needs to be positive to work
-                    figure
+                    %figure
                     odistance = onsetdist(m,4,'fig');
                                      
-                    title(d(i).name)
+                    b=[b; odistance'];
+                    filenames{end+1} = d(i).name;
 
-                    save(['C:\Users\user\Desktop\MIDI\mono' ...
-                       num2str(d(i).name) '.mat'],'odistance')
+                    %title(d(i).name)
+
+                    %save([num2str(d(i).name) '.mat'],'odistance')
                 
-                    snapnow
-                    close all
+                    %snapnow
+                    %close all
                 end
                 
                  
@@ -39,6 +46,7 @@ d = dir;
         end
     end
 end
+
         
 
 

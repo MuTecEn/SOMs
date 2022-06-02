@@ -7,6 +7,8 @@
 %
 %   b - input data.
 
+load export.mat
+
 x = b';
 
 % Create a Self-Organizing Map
@@ -37,18 +39,17 @@ figure, plotsomnd(net, x)
 for j=1:rows
 for k=1:columns
     val = y(j,k);
-    load('filenames.mat','d');
     if val == 1
         point = [j,k];
         test = j;
-        n = d(k).name;
+        n = filenames{k};
         [filepath,name,ext] = fileparts(n);
         n = name;
                 
         for w=1
         for z=test
             val2 = pos([w,w+1],z); 
-            text(val2(1),val2(2),0,n,'FontSize',2)
+            text(val2(1),val2(2),0,n,'FontSize',20,'Color','w')
         end
         end
     end

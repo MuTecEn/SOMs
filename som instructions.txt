@@ -1,0 +1,7 @@
+1. run the featurescript to get mat files for each piece
+2. run script bstruct to create b
+3. train, by loading b (72 rows, x observations depending on features)
+4. run filenames
+5. comm --> d = dir
+6. add d to filenames by drag and drop (working ona better way)
+7. run mykeysom2

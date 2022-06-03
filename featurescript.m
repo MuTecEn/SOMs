@@ -6,6 +6,9 @@ filenames = {};
 
 [b,filenames] = recurse(b,filenames);
 
+maxb = max(b,[],2); % Maximum value for each song
+b = b./repmat(maxb,[1,size(b,2)]); % Normalising with respect to this max value
+
 save('export.mat','matfile','b','filenames');
 
 
